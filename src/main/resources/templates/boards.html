@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>spring boot 게시판</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(boards)}">
+        <h2>게시판</h2>
+        <table class="table table-striped">
+            <tr>
+                <th width="8%">Id</th>
+                <th width="50%">제목</th>
+                <th width="15%">작성자</th>
+                <th width="20%">작성일</th>
+                <th width="7%">조회수</th>
+            </tr>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.id}"><a href="/board/${board.id}"/></td>
+                <td> <a th:text="${board.title}" th:href="${'board/' + board.id}"/></td>
+                <td th:text="${board.writer}"></td>
+                <td th:text="${board.date}"></td>
+                <td th:text="${board.hit}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Pagination Bar -->
+    <div th:fragment='paginationbar'>
+        <div>
+            <ul class='pagination pagination-centered'>
+                <li th:class="${page.firstPage}?'disabled':''">
+                <span th:if='${page.firstPage}'>← First</span>
+                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>
+                </li>
+                <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                <span th:if='${not page.hasPreviousPage}'>«</span>
+                <a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(page=${page.number-2},size=${page.size})}' title='Go to previous page'>«</a>
+                </li>
+                <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                <a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span th:text='${item.number}'>1</span></a>
+                </li>
+                <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                <span th:if='${not page.hasNextPage}'>»</span>
+                <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}' title='Go to next page'>»</a>
+                </li>
+                <li th:class="${page.lastPage}? 'disabled' : ''">
+                <span th:if='${page.lastPage}'>Last →</span>
+                <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button><a href="#" th:href="@{/board/new}">글 작성</a></button>
+</div>
+
+</body>
+</html>
