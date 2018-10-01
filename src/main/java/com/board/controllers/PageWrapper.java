@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// 페이지 //
 public class PageWrapper<T> {
     public static final int MAX_PAGE_ITEM_DISPLAY = 5;
     private Page<T> page;

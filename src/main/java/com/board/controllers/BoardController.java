@@ -21,6 +21,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    // 시작 화면 //
     @RequestMapping(value = "/boards", method = RequestMethod.GET)
     public String list(Model model, Pageable pageable){
         Page<Board> boardPage = boardService.findAll(pageable);
@@ -30,6 +31,7 @@ public class BoardController {
         return "boards";
     }
 
+    // 게시글 상세보기 //
     @RequestMapping("board/{id}")
     public String showboard(@PathVariable Integer id, Model model){
 
@@ -38,24 +40,28 @@ public class BoardController {
         return "boardshow";
     }
 
+    // 게시글 수정 //
     @RequestMapping("board/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("board", boardService.getBoardById(id));
         return "boardform";
     }
 
+    // 게시글 작성 //
     @RequestMapping("board/new")
     public String newboard(Model model){
         model.addAttribute("board", new Board());
         return "boardform";
     }
 
+    // 게시글 저장 //
     @RequestMapping(value = "board", method = RequestMethod.POST)
     public String saveboard(Board board){
         boardService.saveBoard(board);
-        return "redirect:/board/" + board.getId();
+        return "redirect:/boards";
     }
 
+    // 게시글 삭제 //
     @RequestMapping("board/delete/{id}")
     public String delete(@PathVariable Integer id){
         boardService.deleteBoard(id);

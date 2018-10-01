@@ -16,5 +16,5 @@ public interface BoardService {
 
     Page<Board> findAll(Pageable pageable);
 
-    void updatehit(int id);
+    void updatehit(int id);     //조회수 증가
 }

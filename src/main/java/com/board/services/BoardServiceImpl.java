@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
         return boardRepository.findAll(pageable);
     }
 
-    @Override
+    @Override       //조회수 증가
     public void updatehit(int id) {
         Optional<Board> byId = boardRepository.findById(id);
         byId.ifPresent(_content ->{

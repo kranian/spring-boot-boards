@@ -14,12 +14,10 @@ public class Board {
 
     @Id
     @GeneratedValue
-    private int id;
-    private String title;
-    private String writer;
-
-    //조회수 증가
-    private int hit;
+    private int id;             //ID
+    private String title;       //제목
+    private String writer;      //작성자
+    private int hit;            //조회수
 
     @Column(nullable = false, columnDefinition = "date default sysdate")
     @Temporal(TemporalType.TIMESTAMP)
